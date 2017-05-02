@@ -2,6 +2,7 @@
 
 require('dotenv').config()
 const express = require('express')
+const models = require('./models/index');
 const request = require('request')
 const path = require('path')
 const app = express()
@@ -22,13 +23,13 @@ jwtOptions.secretOrKey = 'turboKoala2000';
 
 var strategy = new JwtStrategy(jwtOptions, (jwt_payload, next) => {
   console.log('payload received', jwt_payload);
-  // database call:
-  var user = users[_.findIndex(users, {id: jwt_payload.id})];
-  if (user) {
-    next(null, user);
-  } else {
-    next(null, false);
-  }
+  let user_id = jwt_payload.id
+  models.User.findById(user_id).then((result) => {
+    return next(null, result.dataValues)
+  }, (value) => {
+    console.log('value', value);
+    return next(null, false)
+  })
 });
 
 passport.use(strategy);
@@ -37,14 +38,15 @@ app.get('/', (req, res) => {
   res.send('Hello!')
 })
 
+app.get('/secured', passport.authenticate('jwt', { session: false }), (req, res) => {
+  res.send('SECURED CIA INFO')
+})
+
 app.get('/login', (req, res) => {
   res.sendFile(path.join(__dirname+'/log_button.html'))
 })
 
 app.use(passport.initialize());
-
-// parse application/x-www-form-urlencoded
-// for easier testing with Postman or plain HTML forms
 app.use(bodyParser.urlencoded({
   extended: true
 }));
@@ -66,12 +68,16 @@ app.get('/slack/auth', (req, res) =>{
         if (!JSONresponse.ok){
             console.log(JSONresponse)
             res.send("Error encountered: \n"+JSON.stringify(JSONresponse)).status(200).end()
-        }else{
-            console.log(JSONresponse)
-            //sequelize init
-
-
-            res.sendFile(path.join(__dirname+'/after_login.html'))
+        } else {
+          let username = JSONresponse.user.name;
+          let slack_id = JSONresponse.user.id;
+          models.User.findOrCreate({where: { name: username, slack_id: slack_id }})
+            .then((result) => {
+              let user = result[0]
+              let payload = {id: user.dataValues.id};
+              let token = jwt.sign(payload, jwtOptions.secretOrKey);
+              res.json({message: "ok", token: token});
+            })
         }
     })
 })
