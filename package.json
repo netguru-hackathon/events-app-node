@@ -1,18 +1,21 @@
 {
   "name": "events-api-slack",
   "version": "1.0.0",
-  "repository": {
-    "url": "git@github.com:Fiiii/events_hackaton.git",
-    "type": "git"
-  },
-  "scripts": {
-    "start": "concurrently \"npm run server\" \"npm run client\"",
-    "server": "babel-node server.js",
-    "client": "babel-node start-client.js"
-  },
-  "author": "Artur Figiel <arturffigiel@gmail.com>",
-  "license": "MIT",
+  "description": "",
+  "main": "server.js",
   "dependencies": {
+    "body-parser": "^1.17.1",
+    "dotenv": "^4.0.0",
+    "express": "^4.15.2",
+    "jsonwebtoken": "^7.4.0",
+    "lodash": "^4.17.4",
+    "passport": "^0.3.2",
+    "path": "^0.12.7",
+    "passport-jwt": "^2.2.1",
+    "pg": "^6.1.5",
+    "pg-hstore": "^2.3.2",
+    "request": "^2.81.0",
+    "sequelize": "^3.30.4",
     "babel": "^6.23.0",
     "babel-cli": "^6.24.1",
     "babel-core": "^6.24.1",
@@ -20,5 +23,19 @@
     "eslint": "^3.19.0",
     "express": "^4.15.2",
     "fs": "0.0.1-security"
-  }
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Fiiii/events_hackaton.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Fiiii/events_hackaton/issues"
+  },
+  "homepage": "https://github.com/Fiiii/events_hackaton#readme"
 }
