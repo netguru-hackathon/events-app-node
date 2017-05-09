@@ -42,10 +42,6 @@ app.get('/secured', passport.authenticate('jwt', { session: false }), (req, res)
   res.send('SECURED CIA INFO')
 })
 
-app.get('/login', (req, res) => {
-  res.sendFile(path.join(__dirname+'/log_button.html'))
-})
-
 app.use(passport.initialize());
 app.use(bodyParser.urlencoded({
   extended: true
@@ -53,6 +49,10 @@ app.use(bodyParser.urlencoded({
 
 // parse application/json
 app.use(bodyParser.json())
+
+app.get('/login', (req, res) => {
+  res.sendFile(path.join(__dirname+'/log_button.html'))
+})
 
 app.get('/slack/auth', (req, res) =>{
     var options = {
