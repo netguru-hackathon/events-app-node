@@ -16,6 +16,7 @@ const passportJWT = require("passport-jwt");
 
 const ExtractJwt = passportJWT.ExtractJwt;
 const JwtStrategy = passportJWT.Strategy;
+const BearerStrategy = require('passport-http-bearer').Strategy;
 
 let jwtOptions = {}
 jwtOptions.jwtFromRequest = ExtractJwt.fromAuthHeader();
@@ -31,6 +32,18 @@ var strategy = new JwtStrategy(jwtOptions, (jwt_payload, next) => {
     return next(null, false)
   })
 });
+
+// passport.use(new BearerStrategy(
+//   function(token, done) {
+//     User.findOne({ token: token }, function (err, user) {
+//       if (err) { return done(err); }
+//       if (!user) { return done(null, false); }
+//       return done(null, user, { scope: 'all' });
+//     });
+//   }
+// ));
+
+
 
 passport.use(strategy);
 
