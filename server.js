@@ -9,6 +9,8 @@ const passport = require('passport')
 const path = require('path')
 const request = require('request')
 const _ = require("lodash")
+const passportJWT = require("passport-jwt");
+const ExtractJwt = passportJWT.ExtractJwt;
 
 const app = express();
 app.use(bodyParser.json())
