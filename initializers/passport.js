@@ -7,10 +7,6 @@ const ExtractJwt = passportJWT.ExtractJwt;
 const JwtStrategy = passportJWT.Strategy;
 const BearerStrategy = require('passport-http-bearer').Strategy;
 
-let jwtOptions = {}
-jwtOptions.jwtFromRequest = ExtractJwt.fromAuthHeader();
-jwtOptions.secretOrKey = 'turboKoala2000';
-
 const jwtStrategy = new JwtStrategy(jwtOptions, (jwt_payload, next) => {
   console.log('payload received', jwt_payload);
   let user_id = jwt_payload.id

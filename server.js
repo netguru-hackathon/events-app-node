@@ -17,6 +17,10 @@ app.use(bodyParser.urlencoded({
   extended: true
 }));
 
+let jwtOptions = {}
+jwtOptions.jwtFromRequest = ExtractJwt.fromAuthHeader();
+jwtOptions.secretOrKey = 'turboKoala2000';
+
 require('./initializers/passport')
 
 app.get('/', (req, res) => {
