@@ -7,17 +7,6 @@ const ExtractJwt = passportJWT.ExtractJwt;
 const JwtStrategy = passportJWT.Strategy;
 const BearerStrategy = require('passport-http-bearer').Strategy;
 
-const jwtStrategy = new JwtStrategy(jwtOptions, (jwt_payload, next) => {
-  console.log('payload received', jwt_payload);
-  let user_id = jwt_payload.id
-  models.User.findById(user_id).then((result) => {
-    return next(null, result.dataValues)
-  }, (value) => {
-    console.log('value', value);
-    return next(null, false)
-  })
-});
-
 const bearerStrategy = passport.use(new BearerStrategy(
   (token, done) => {
      models.User.findOne({where: {token: token}}).then((user, err) => {
