@@ -51,7 +51,7 @@ app.use(bodyParser.urlencoded({
 }));
 
 app.get('/', (req, res) => {
-  res.send('Hello!')
+  res.send('Hello in sample events app api !!!')
 })
 
 app.get('/secured', passport.authenticate('bearer', { session: false }), (req, res) => {
