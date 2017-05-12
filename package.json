@@ -28,6 +28,9 @@
     "request": "^2.81.0",
     "sequelize": "^3.30.4"
   },
+    "engines": {
+    "node": "6.5.0"
+  },
   "devDependencies": {},
   "repository": {
     "type": "git",
