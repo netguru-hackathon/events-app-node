@@ -17,7 +17,6 @@ import { handleError } from './helpers/common'
 
 const app = express();
 
-
 function createSession(req, res) {
   authorizeWithAuthCode(req.body.code || req.query.code)
     .then(({username, slack_id}) => {
@@ -59,8 +58,6 @@ app.get('/login', (req, res) => {
 
 app.get('/slack/auth', createSession)
 app.post('/api/session', createSession)
-
-app.post('/session')
 
 const port = process.env.PORT || 10010;
 app.listen(port);
