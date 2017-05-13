@@ -21,6 +21,8 @@ const app = express();
 function createSession(req, res) {
   authorizeWithAuthCode(req.body.code || req.query.code)
     .then(({username, slack_id}) => {
+      models;
+      debugger;
       return models.User.findOrCreate({where: { name: username, slack_id: slack_id }})
         .then((result) => {
           let user = result[0]
