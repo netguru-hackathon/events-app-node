@@ -13,6 +13,15 @@ export default (app) => {
     res.sendFile(path.resolve('./log_button.html'));
   });
 
+
+  app.get('/api/events' (req, res) => {
+    res.json({
+      "name": 'WOWOOW',
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut convallis justo non dui tincidunt egestas. Curabitur sed vestibulum arcu. Sed in enim vel augue pulvinar sollicitudin. Sed convallis tristique leo vel aliquam.",
+      "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSvGBbRtzgNfNaHPP9X28Gj6OQF0l6ZaiqgxJlujX5QsE5g35Or18WijxY3"
+    });
+  });
+
   app.get('/slack/auth', SessionController.create);
   app.post('/api/session', SessionController.create);
 };
