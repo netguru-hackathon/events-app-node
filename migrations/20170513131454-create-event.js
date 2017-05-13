@@ -1,7 +1,6 @@
 'use strict';
-
 module.exports = {
-  up: function (queryInterface, Sequelize) {
+  up: function(queryInterface, Sequelize) {
     return queryInterface.createTable('Events', {
       id: {
         allowNull: false,
@@ -9,8 +8,7 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      organizations_id: {
-        allowNull: true,
+      organization_id: {
         type: Sequelize.INTEGER
       },
       name: {
@@ -18,11 +16,18 @@ module.exports = {
       },
       description: {
         type: Sequelize.STRING
+      },
+      createdAt: {
+        allowNull: false,
+        type: Sequelize.DATE
+      },
+      updatedAt: {
+        allowNull: false,
+        type: Sequelize.DATE
       }
     });
   },
-
-  down: function (queryInterface, Sequelize) {
+  down: function(queryInterface, Sequelize) {
     return queryInterface.dropTable('Events');
   }
 };
