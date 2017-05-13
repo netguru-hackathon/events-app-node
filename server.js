@@ -13,8 +13,26 @@ const passportJWT = require("passport-jwt");
 const ExtractJwt = passportJWT.ExtractJwt;
 import { authorizeWithAuthCode } from './services/slackAuth'
 import SessionSerializer from './serializers/session'
+import { handleError } from './helpers/common'
 
 const app = express();
+
+
+function createSession(req, res) {
+  authorizeWithAuthCode(req.body.code || req.query.code)
+    .then(({username, slack_id}) => {
+      return models.User.findOrCreate({where: { name: username, slack_id: slack_id }})
+        .then((result) => {
+          let user = result[0]
+          let payload = {id: user.dataValues.id};
+          return jwt.sign(payload, jwtOptions.secretOrKey, (err, token) => {
+            return user.update({token: token}).then(function() {
+              res.json(SessionSerializer.serialize({id: user.id, token: token}))
+            })
+          })
+        })
+    }).catch((error) => handleError(res, 404, error))
+}
 app.use(bodyParser.json())
 app.use(passport.initialize());
 app.use(bodyParser.urlencoded({
@@ -39,22 +57,8 @@ app.get('/login', (req, res) => {
   res.sendFile(path.join(__dirname+'/log_button.html'))
 })
 
-app.get('/slack/auth', (req, res) =>{
-  authorizeWithAuthCode(req.query.code)
-    .then(({username, slack_id}) => {
-      return models.User.findOrCreate({where: { name: username, slack_id: slack_id }})
-        .then((result) => {
-          let user = result[0]
-          let payload = {id: user.dataValues.id};
-          jwt.sign(payload, jwtOptions.secretOrKey, (err, token) => {
-            if(err) { console.error(err); }
-            user.update({token: token}).then(function() {
-              res.json(SessionSerializer.serialize({id: user.id, token: token}))
-            })
-          })
-        }).catch((error) => res.send(error))
-    })
-})
+app.get('/slack/auth', createSession)
+app.post('/api/session', createSession)
 
 app.post('/session')
 

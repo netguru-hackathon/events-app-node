@@ -16,7 +16,7 @@ function authorizeWithAuthCode(authCode) {
     request(options, (error, response, body) => {
       var JSONresponse = JSON.parse(body)
       if (!JSONresponse.ok){
-          reject("Error encountered: \n"+JSON.stringify(JSONresponse))
+          reject(JSONresponse.error)
       } else {
         resolve({
           username: JSONresponse.user.name,
