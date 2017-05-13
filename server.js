@@ -48,7 +48,6 @@ app.get('/slack/auth', (req, res) =>{
           let payload = {id: user.dataValues.id};
           jwt.sign(payload, jwtOptions.secretOrKey, (err, token) => {
             if(err) { console.error(err); }
-
             user.update({token: token}).then(function() {
               res.json(SessionSerializer.serialize({id: user.id, token: token}))
             })
