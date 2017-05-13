@@ -12,6 +12,7 @@ const REQUIRED_KEYS = [
 
 REQUIRED_KEYS.forEach((key) => {
   if (!(key in process.env)) {
+    console.log(key)
     throw new Error(`Missing required config key: ${key}`);
   }
 });
