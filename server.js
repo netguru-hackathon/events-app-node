@@ -58,7 +58,7 @@ app.get('/login', (req, res) => {
 })
 
 app.get('/slack/auth', createSession)
-app.post('/session', createSession)
+app.post('/api/session', createSession)
 
 const port = process.env.PORT || 10010;
 app.listen(port);
