@@ -12,6 +12,7 @@ const _ = require("lodash")
 const passportJWT = require("passport-jwt");
 const ExtractJwt = passportJWT.ExtractJwt;
 import { authorizeWithAuthCode } from './services/slackAuth'
+import SessionSerializer from './serializers/session'
 
 const app = express();
 app.use(bodyParser.json())
@@ -49,7 +50,7 @@ app.get('/slack/auth', (req, res) =>{
             if(err) { console.error(err); }
 
             user.update({token: token}).then(function() {
-              res.json({message: "ok", token: token})
+              res.json(SessionSerializer.serialize({id: user.id, token: token}))
             })
           })
         }).catch((error) => res.send(error))

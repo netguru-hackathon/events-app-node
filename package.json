@@ -20,6 +20,7 @@
     "express": "^4.15.2",
     "foreman": "2.0.0",
     "fs": "0.0.1-security",
+    "jsonapi-serializer": "^3.5.3",
     "jsonwebtoken": "^7.4.0",
     "lodash": "^4.17.4",
     "node-inspector": "^1.1.1",
