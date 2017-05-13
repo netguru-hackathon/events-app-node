@@ -13,6 +13,7 @@ const passportJWT = require("passport-jwt");
 const ExtractJwt = passportJWT.ExtractJwt;
 import { authorizeWithAuthCode } from './services/slackAuth'
 import SessionSerializer from './serializers/session'
+import { handleError } from './helpers/common'
 
 const app = express();
 
@@ -25,13 +26,12 @@ function createSession(req, res) {
           let user = result[0]
           let payload = {id: user.dataValues.id};
           return jwt.sign(payload, jwtOptions.secretOrKey, (err, token) => {
-            if(err) { console.error(err); }
             return user.update({token: token}).then(function() {
               res.json(SessionSerializer.serialize({id: user.id, token: token}))
             })
           })
-        }).catch((error) => res.send(error))
-    })
+        })
+    }).catch((error) => handleError(res, 404, error))
 }
 app.use(bodyParser.json())
 app.use(passport.initialize());
