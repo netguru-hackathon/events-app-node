@@ -18,33 +18,26 @@ const {
   DB_PASSWORD,
   DB_DATABASE,
   DB_HOST,
+  DB_SSL_ENABLED,
+  SLACK_CLIENT_ID,
+  SLACK_CLIENT_SECRET,
+  SLACK_REDIRECT_URI,
 } = process.env;
 
-const common = {
+export default {
   postgres: {
     username: DB_USERNAME,
     password: DB_PASSWORD || null,
     database: DB_DATABASE,
     host: DB_HOST,
     dialect: 'postgres',
+    dialectOptions: {
+      ssl: DB_SSL_ENABLED === 'true',
+    },
+  },
+  slack: {
+    clientId: SLACK_CLIENT_ID,
+    clientSecret: SLACK_CLIENT_SECRET,
+    redirectURI: SLACK_REDIRECT_URI,
   },
 };
-
-function getEnvConfig(env) {
-  switch (env) {
-    case 'production':
-      return {
-        ...common,
-        postgres: {
-          ...common.posgres,
-          dialectOptions: {
-            ssl: true,
-          },
-        },
-      };
-    default:
-      return common;
-  }
-}
-
-export default getEnvConfig(process.env.NODE_ENV);

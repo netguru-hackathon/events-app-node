@@ -1,33 +1,30 @@
-'use strict'
+import request from 'request';
+import config from '../config/config';
 
-require('dotenv').config()
-const request = require('request')
+const { clientId, clientSecret, redirectURI } = config.slack;
 
 function authorizeWithAuthCode(authCode) {
   return new Promise((resolve, reject) => {
     const options = {
-        uri: 'https://slack.com/api/oauth.access?code='
-            +authCode+
-            '&client_id='+process.env.CLIENT_ID+
-            '&client_secret='+process.env.CLIENT_SECRET+
-            '&redirect_uri='+process.env.REDIRECT_URI,
-        method: 'GET'
-    }
+      uri: `https://slack.com/api/oauth.access?code=${authCode}&client_id=${clientId}&client_secret=${clientSecret}&redirect_uri=${redirectURI}`,
+      method: 'GET',
+    };
+
     request(options, (error, response, body) => {
-      var JSONresponse = JSON.parse(body)
-      if (!JSONresponse.ok){
-          reject(JSONresponse.error)
+      const JSONresponse = JSON.parse(body);
+      if (!JSONresponse.ok) {
+        reject(JSONresponse.error);
       } else {
         resolve({
           username: JSONresponse.user.name,
           slack_id: JSONresponse.user.id,
-        })
+        });
       }
-    })
-  })
+    });
+  });
 }
 
 
 module.exports = {
   authorizeWithAuthCode,
-}
+};
