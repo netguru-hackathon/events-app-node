@@ -3,7 +3,7 @@ import { ExtractJwt } from 'passport-jwt';
 
 import models from '../../models/index';
 import { authorizeWithAuthCode } from '../../services/slackAuth';
-import SessionSerializer from '../../serializers/session';
+import SessionSerializer from '../serializers/session';
 import { handleError } from '../../helpers/common';
 
 const jwtOptions = {

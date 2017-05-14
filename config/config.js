@@ -1,5 +1,3 @@
-'use_strict'
-
 const dotEnvPath = `.env.${process.env.NODE_ENV || 'development'}`;
 require('dotenv').config({ path: dotEnvPath });
 
@@ -23,7 +21,7 @@ const {
   DB_HOST,
 } = process.env;
 
-module.exports = {
+export default {
 
   // Sequelize config, sourced based on current NODE_ENV from models/index.js file
   [process.env.NODE_ENV || 'development']: {
