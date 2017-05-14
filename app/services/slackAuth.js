@@ -3,7 +3,7 @@ import config from '../config/config';
 
 const { clientId, clientSecret, redirectURI } = config.slack;
 
-function authorizeWithAuthCode(authCode) {
+export function authorizeWithAuthCode(authCode) {
   return new Promise((resolve, reject) => {
     const options = {
       uri: `https://slack.com/api/oauth.access?code=${authCode}&client_id=${clientId}&client_secret=${clientSecret}&redirect_uri=${redirectURI}`,
@@ -25,6 +25,6 @@ function authorizeWithAuthCode(authCode) {
 }
 
 
-module.exports = {
+export default {
   authorizeWithAuthCode,
 };

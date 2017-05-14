@@ -4,9 +4,10 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "start": "babel-node server.js --presets es2015,stage-2",
-    "start-debug": "nodemon --debug server.js --exec babel-node --presets es2015,stage-2",
-    "start-dev": "nodemon server.js --exec babel-node --presets es2015,stage-2",
+    "build": "babel --presets es2015,stage-2 app -d dist",
+    "serve": "node dist/server.js",
+    "start": "nodemon app/server.js --exec babel-node --presets es2015,stage-2",
+    "start-debug": "nodemon --debug app/server.js --exec babel-node --presets es2015,stage-2",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {

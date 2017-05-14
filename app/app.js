@@ -12,13 +12,13 @@ app.use(passport.initialize());
 app.use(bodyParser.urlencoded({
   extended: true,
 }));
-
+//
 app.get('/', (req, res) => res.send('Hello in sample events app api !!!'));
 
 app.get('/slack/auth', SessionsController.create);
 
 app.get('/login', (req, res) => {
-  res.sendFile(path.resolve('./log_button.html'));
+  res.sendFile(path.resolve('./app/log_button.html'));
 });
 
 app.use('/api', apiRouter);

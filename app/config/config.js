@@ -14,17 +14,21 @@ REQUIRED_KEYS.forEach((key) => {
 });
 
 const {
+  PORT,
+
   DB_USERNAME,
   DB_PASSWORD,
   DB_DATABASE,
   DB_HOST,
   DB_SSL_ENABLED,
+
   SLACK_CLIENT_ID,
   SLACK_CLIENT_SECRET,
   SLACK_REDIRECT_URI,
 } = process.env;
 
 export default {
+  port: PORT || 10010,
   postgres: {
     username: DB_USERNAME,
     password: DB_PASSWORD || null,
