@@ -13,4 +13,7 @@ module.exports = {
     'no-param-reassign': 0,
     strict: [2, 'global'],
   },
+  env: {
+    jest: true,
+  },
 };
