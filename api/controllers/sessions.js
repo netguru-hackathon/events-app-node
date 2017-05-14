@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken';
 import { ExtractJwt } from 'passport-jwt';
 
-import models from '../../models/index';
+import User from '../../models/user';
 import { authorizeWithAuthCode } from '../../services/slackAuth';
 import SessionSerializer from '../serializers/session';
 import { handleError } from '../../helpers/common';
@@ -14,7 +14,7 @@ const jwtOptions = {
 function create(req, res) {
   authorizeWithAuthCode(req.body.code || req.query.code)
     .then(({ username, slack_id }) => {
-      models.User.findOrCreate({ where: { name: username, slack_id } })
+      User.findOrCreate({ where: { name: username, slack_id } })
         .then((result) => {
           const user = result[0];
           const payload = { id: user.dataValues.id };
