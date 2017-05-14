@@ -21,7 +21,7 @@ const {
   DB_HOST,
 } = process.env;
 
-export default {
+module.exports = {
 
   // Sequelize config, sourced based on current NODE_ENV from models/index.js file
   [process.env.NODE_ENV || 'development']: {
@@ -30,8 +30,8 @@ export default {
     database: DB_DATABASE,
     host: DB_HOST,
     dialect: 'postgres',
-    "dialectOptions": {
-      "ssl": true
-    }
+    dialectOptions: {
+      ssl: true,
+    },
   },
 };
