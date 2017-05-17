@@ -6,13 +6,13 @@ function index(_, res) {
       id: 1,
       name: 'WOWOOW',
       description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut convallis justo non dui tincidunt egestas. Curabitur sed vestibulum arcu. Sed in enim vel augue pulvinar sollicitudin. Sed convallis tristique leo vel aliquam.',
-      image: 'http://dinoanimals.pl/wp-content/uploads/2013/07/Pancernik5.jpg',
+      image: 'https://wallpaperbrowse.com/media/images/eiffel-tower-wallpaper-18.jpg',
     },
     {
       id: 2,
       name: 'WOWOWO2',
       description: 'convallis justo non dui tincidunt egestas. Curabitur sed vestibulum arcu. Sed in enim vel augue pulvinar sollicitudin. Sed convallis tristique leo vel aliquam.',
-      image: 'http://aurora-awards.com/wp-content/uploads/2017/05/image-image-7.jpg',
+      image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQWDR-jRqiROmggugSFqfKEDdPgYg8X2qWQKkGqa0Qhd6LTK--bdQ',
     },
   ];
   res.json(EventBasicSerializer.serialize(fakeData));
@@ -23,7 +23,7 @@ function get(req, res) {
     id: req.params.eventId,
     name: 'WOWOOW',
     description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut convallis justo non dui tincidunt egestas. Curabitur sed vestibulum arcu. Sed in enim vel augue pulvinar sollicitudin. Sed convallis tristique leo vel aliquam.',
-    image: 'http://mm.pwn.pl/ency/jpg/583/1s/d03i0120.jpg',
+    image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQc_zawQUHFf9Zu2BvMT37tDO3FuayEsKXf3lIgy5w2RPu3cwJY',
     items: [
       {
         id: 1,
