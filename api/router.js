@@ -1,6 +1,6 @@
 import passport from 'passport';
 import path from 'path';
-import SessionController from './controllers/session';
+import SessionController from '../api/controllers/session';
 
 export default (app) => {
   app.get('/', (req, res) => res.send('Hello in sample events app api !!!'));
