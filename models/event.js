@@ -7,7 +7,10 @@ module.exports = function(sequelize, DataTypes) {
   }, {
     classMethods: {
       associate: function(models) {
-
+        Event.belongsToMany(models.User, {
+          through: 'User_Events',
+          foreignKey: 'event_id',
+        })
       }
     }
   });
