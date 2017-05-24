@@ -1,11 +1,19 @@
-import { DataTypes } from 'sequelize';
+'use strict';
 
-import sequelize from './sequelize';
-
-const User = sequelize.define('User', {
-  name: DataTypes.STRING,
-  slack_id: DataTypes.STRING,
-  token: DataTypes.STRING,
-});
-
-export default User;
+module.exports = function(sequelize, DataTypes) {
+  var User = sequelize.define('User', {
+    name: DataTypes.STRING,
+    slack_id: DataTypes.STRING,
+    token: DataTypes.STRING
+  }, {
+    classMethods: {
+      associate: function(models) {
+        User.belongsToMany(models.Event, {
+          through: 'User_Events',
+          foreignKey: 'user_id'
+        })
+      }
+    }
+  });
+  return User;
+};

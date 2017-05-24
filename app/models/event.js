@@ -1,18 +1,19 @@
 'use strict';
+
 module.exports = function(sequelize, DataTypes) {
-  var User = sequelize.define('User', {
+  var Event = sequelize.define('Event', {
+    organization_id: DataTypes.INTEGER,
     name: DataTypes.STRING,
-    slack_id: DataTypes.STRING,
-    token: DataTypes.STRING
+    description: DataTypes.STRING
   }, {
     classMethods: {
       associate: function(models) {
-        User.belongsToMany(models.Event, {
+        Event.belongsToMany(models.User, {
           through: 'User_Events',
-          foreignKey: 'user_id'
+          foreignKey: 'event_id',
         })
       }
     }
   });
-  return User;
+  return Event;
 };
