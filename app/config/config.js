@@ -35,10 +35,6 @@ export default {
     database: DB_DATABASE,
     host: DB_HOST,
     dialect: 'postgres',
-    "dialectOptions": {
-      // "ssl": true
-    },
-
     dialectOptions: {
       ssl: DB_SSL_ENABLED === 'true',
     },
@@ -47,6 +43,6 @@ export default {
     clientId: SLACK_CLIENT_ID,
     clientSecret: SLACK_CLIENT_SECRET,
     redirectURI: SLACK_REDIRECT_URI,
->>>>>>> master:app/config/config.js
+
   },
 };
