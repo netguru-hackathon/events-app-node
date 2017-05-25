@@ -1,4 +1,4 @@
-const dotEnvPath = `.env.${process.env.NODE_ENV || 'development'}`;
+const dotEnvPath = `../.env.${process.env.NODE_ENV || 'development'}`;
 require('dotenv').config({ path: dotEnvPath });
 
 const REQUIRED_KEYS = [
@@ -12,6 +12,7 @@ REQUIRED_KEYS.forEach((key) => {
     throw new Error(`Missing required config key: ${key}`);
   }
 });
+
 
 const {
   PORT,
@@ -43,6 +44,10 @@ export default {
     clientId: SLACK_CLIENT_ID,
     clientSecret: SLACK_CLIENT_SECRET,
     redirectURI: SLACK_REDIRECT_URI,
-
   },
+  username: DB_USERNAME,
+  password: DB_PASSWORD || null,
+  database: DB_DATABASE,
+  host: DB_HOST,
+  dialect: 'postgres',
 };

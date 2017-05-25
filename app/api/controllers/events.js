@@ -1,21 +1,14 @@
-import { EventBasicSerializer, EventSerializer } from '../serializers/event';
+import { EventSerializer } from '../serializers/event';
+import User from '../../models';
+// import Event from '../../models/event';
 
 function index(_, res) {
-  const fakeData = [
-    {
-      id: 1,
-      name: 'WOWOOW',
-      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut convallis justo non dui tincidunt egestas. Curabitur sed vestibulum arcu. Sed in enim vel augue pulvinar sollicitudin. Sed convallis tristique leo vel aliquam.',
-      image: 'https://wallpaperbrowse.com/media/images/eiffel-tower-wallpaper-18.jpg',
-    },
-    {
-      id: 2,
-      name: 'WOWOWO2',
-      description: 'convallis justo non dui tincidunt egestas. Curabitur sed vestibulum arcu. Sed in enim vel augue pulvinar sollicitudin. Sed convallis tristique leo vel aliquam.',
-      image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQWDR-jRqiROmggugSFqfKEDdPgYg8X2qWQKkGqa0Qhd6LTK--bdQ',
-    },
-  ];
-  res.json(EventBasicSerializer.serialize(fakeData));
+  return User.create({
+    name: 'Artur',
+  }).then(us => res.json(us));
+
+
+  // res.json(EventBasicSerializer.serialize(fakeData));
 }
 
 function get(req, res) {
