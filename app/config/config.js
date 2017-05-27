@@ -42,27 +42,3 @@ module.exports = {
     dialect: 'postgres',
   },
 };
-
-// export default {
-//   port: PORT || 10010,
-//   postgres: {
-//     username: DB_USERNAME,
-//     password: DB_PASSWORD || null,
-//     database: DB_DATABASE,
-//     host: DB_HOST,
-//     dialect: 'postgres',
-//     dialectOptions: {
-//       ssl: DB_SSL_ENABLED === 'true',
-//     },
-//   },
-//   slack: {
-//     clientId: SLACK_CLIENT_ID,
-//     clientSecret: SLACK_CLIENT_SECRET,
-//     redirectURI: SLACK_REDIRECT_URI,
-//   },
-//   username: DB_USERNAME,
-//   password: DB_PASSWORD || null,
-//   database: DB_DATABASE,
-//   host: DB_HOST,
-//   dialect: 'postgres',
-// };
