@@ -1,12 +1,12 @@
 import { EventSerializer } from '../serializers/event';
-import User from '../../models';
-// import Event from '../../models/event';
 
-function index(_, res) {
-  return User.create({
-    name: 'Artur',
-  }).then(us => res.json(us));
+const Event = require('../../models').Event;
+// const User = require('../../models').User;
 
+function index(req, res) {
+  Event.findAll({
+    name: 'Cool Event',
+  }).then(user => res.status(201).send(user));
 
   // res.json(EventBasicSerializer.serialize(fakeData));
 }

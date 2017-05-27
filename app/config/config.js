@@ -1,4 +1,4 @@
-const dotEnvPath = `../.env.${process.env.NODE_ENV || 'development'}`;
+const dotEnvPath = `.env.${process.env.NODE_ENV || 'development'}`;
 require('dotenv').config({ path: dotEnvPath });
 
 const REQUIRED_KEYS = [
@@ -13,7 +13,6 @@ REQUIRED_KEYS.forEach((key) => {
   }
 });
 
-
 const {
   PORT,
 
@@ -21,33 +20,49 @@ const {
   DB_PASSWORD,
   DB_DATABASE,
   DB_HOST,
-  DB_SSL_ENABLED,
+  // DB_SSL_ENABLED,
 
   SLACK_CLIENT_ID,
   SLACK_CLIENT_SECRET,
   SLACK_REDIRECT_URI,
 } = process.env;
 
-export default {
+module.exports = {
   port: PORT || 10010,
-  postgres: {
-    username: DB_USERNAME,
-    password: DB_PASSWORD || null,
-    database: DB_DATABASE,
-    host: DB_HOST,
-    dialect: 'postgres',
-    dialectOptions: {
-      ssl: DB_SSL_ENABLED === 'true',
-    },
-  },
   slack: {
     clientId: SLACK_CLIENT_ID,
     clientSecret: SLACK_CLIENT_SECRET,
     redirectURI: SLACK_REDIRECT_URI,
   },
-  username: DB_USERNAME,
-  password: DB_PASSWORD || null,
-  database: DB_DATABASE,
-  host: DB_HOST,
-  dialect: 'postgres',
+  [process.env.NODE_ENV || 'development']: {
+    username: DB_USERNAME,
+    password: DB_PASSWORD || null,
+    database: DB_DATABASE,
+    host: DB_HOST,
+    dialect: 'postgres',
+  },
 };
+
+// export default {
+//   port: PORT || 10010,
+//   postgres: {
+//     username: DB_USERNAME,
+//     password: DB_PASSWORD || null,
+//     database: DB_DATABASE,
+//     host: DB_HOST,
+//     dialect: 'postgres',
+//     dialectOptions: {
+//       ssl: DB_SSL_ENABLED === 'true',
+//     },
+//   },
+//   slack: {
+//     clientId: SLACK_CLIENT_ID,
+//     clientSecret: SLACK_CLIENT_SECRET,
+//     redirectURI: SLACK_REDIRECT_URI,
+//   },
+//   username: DB_USERNAME,
+//   password: DB_PASSWORD || null,
+//   database: DB_DATABASE,
+//   host: DB_HOST,
+//   dialect: 'postgres',
+// };
