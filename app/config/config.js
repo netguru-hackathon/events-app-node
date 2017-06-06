@@ -5,6 +5,9 @@ const REQUIRED_KEYS = [
   'DB_USERNAME',
   'DB_DATABASE',
   'DB_HOST',
+  'SLACK_CLIENT_ID',
+  'SLACK_CLIENT_SECRET',
+  'SLACK_REDIRECT_URI',
 ];
 
 REQUIRED_KEYS.forEach((key) => {
