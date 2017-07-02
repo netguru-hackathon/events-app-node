@@ -14,7 +14,8 @@ function get(req, res) {
       } else {
         res.status(404).send('Not Found');
       }
-    });
+    })
+    .catch(error => res.render('error', { error }));
 }
 
 function create(req, res) {
@@ -29,7 +30,8 @@ function findAndUpdate(req, res) {
   Event.find({ where: { id: req.params.eventId } })
     .then((event) => {
       event.update({ name, description })
-      .then(updatedEvent => res.json(EventSerializer.serialize(updatedEvent)));
+      .then(updatedEvent => res.json(EventSerializer.serialize(updatedEvent)))
+      .catch(error => res.render('error', { error }));
     });
 }
 

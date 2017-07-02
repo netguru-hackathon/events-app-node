@@ -1,4 +1,5 @@
 const dotEnvPath = `.env.${process.env.NODE_ENV || 'development'}`;
+
 require('dotenv').config({ path: dotEnvPath });
 
 const REQUIRED_KEYS = [
@@ -28,6 +29,8 @@ const {
   SLACK_CLIENT_ID,
   SLACK_CLIENT_SECRET,
   SLACK_REDIRECT_URI,
+
+  BASE_API_URL,
 } = process.env;
 
 module.exports = {
@@ -44,4 +47,5 @@ module.exports = {
     host: DB_HOST,
     dialect: 'postgres',
   },
+  BASE_API_URL,
 };
