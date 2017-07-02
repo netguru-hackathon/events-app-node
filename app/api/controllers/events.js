@@ -1,75 +1,43 @@
 import { EventBasicSerializer, EventSerializer } from '../serializers/event';
 
+const Event = require('../../models').Event;
+
 function index(_, res) {
-  const fakeData = [
-    {
-      id: 1,
-      name: 'WOWOOW',
-      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut convallis justo non dui tincidunt egestas. Curabitur sed vestibulum arcu. Sed in enim vel augue pulvinar sollicitudin. Sed convallis tristique leo vel aliquam.',
-      image: 'https://wallpaperbrowse.com/media/images/eiffel-tower-wallpaper-18.jpg',
-    },
-    {
-      id: 2,
-      name: 'WOWOWO2',
-      description: 'convallis justo non dui tincidunt egestas. Curabitur sed vestibulum arcu. Sed in enim vel augue pulvinar sollicitudin. Sed convallis tristique leo vel aliquam.',
-      image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQWDR-jRqiROmggugSFqfKEDdPgYg8X2qWQKkGqa0Qhd6LTK--bdQ',
-    },
-  ];
-  res.json(EventBasicSerializer.serialize(fakeData));
+  Event.findAll().then(events => res.status(200).json(EventBasicSerializer.serialize(events)));
 }
 
 function get(req, res) {
-  const fakeData = {
-    id: req.params.eventId,
-    name: 'WOWOOW',
-    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut convallis justo non dui tincidunt egestas. Curabitur sed vestibulum arcu. Sed in enim vel augue pulvinar sollicitudin. Sed convallis tristique leo vel aliquam.',
-    image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQc_zawQUHFf9Zu2BvMT37tDO3FuayEsKXf3lIgy5w2RPu3cwJY',
-    items: [
-      {
-        id: 1,
-        event_id: req.params.eventId,
-        type: 'schedule',
-        name: 'schedule item #1',
-        start_time: '2017-06-12T15:00:00+00:00',
-        end_time: '2017-06-12T17:00:00+00:00',
-      },
-      {
-        id: 2,
-        event_id: req.params.eventId,
-        type: 'schedule',
-        name: 'schedule item #2',
-        start_time: '2017-06-12T17:00:00+00:00',
-        end_time: '2017-06-12T18:00:00+00:00',
-      },
-      {
-        id: 3,
-        event_id: req.params.eventId,
-        type: 'schedule',
-        name: 'schedule item #3',
-        start_time: '2017-06-12T18:00:00+00:00',
-        end_time: '2017-06-12T22:00:00+00:00',
-      },
-      {
-        id: 4,
-        event_id: req.params.eventId,
-        type: 'attraction',
-        name: 'attraction item 1',
-        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-      },
-      {
-        id: 4,
-        event_id: req.params.eventId,
-        type: 'attraction',
-        name: 'attraction item 2',
-        description: 'consectetur adipiscing elit. Ut convallis justo non dui tincidunt egestas. Curabitur sed vestibulum arcu. Sed in enim vel augue pulvinar sollicitudin.',
-      },
-    ],
-  };
+  Event.find({ where: { id: req.params.eventId } })
+    .then((event) => {
+      if (event) {
+        res.status(200).json(EventSerializer.serialize(event));
+      } else {
+        res.status(404).send('Not Found');
+      }
+    })
+    .catch(error => res.render('error', { error }));
+}
 
-  res.json(EventSerializer.serialize(fakeData));
+function create(req, res) {
+  const { name, description } = req.body || req.query;
+  Event.create({ name, description })
+    .then(event => res.json(EventSerializer.serialize(event)))
+    .catch(error => res.render('error', { error }));
+}
+
+function findAndUpdate(req, res) {
+  const { name, description } = req.body || req.query;
+  Event.find({ where: { id: req.params.eventId } })
+    .then((event) => {
+      event.update({ name, description })
+      .then(updatedEvent => res.json(EventSerializer.serialize(updatedEvent)))
+      .catch(error => res.render('error', { error }));
+    });
 }
 
 export default {
   index,
   get,
+  create,
+  findAndUpdate,
 };
