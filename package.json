@@ -29,7 +29,7 @@
     "fs": "0.0.1-security",
     "jsonapi-serializer": "^3.5.3",
     "jsonwebtoken": "^7.4.0",
-    "lodash": "^4.17.4",
+    "lodash": "^4.17.21",
     "mysql": "^2.13.0",
     "nock": "^9.0.13",
     "node-inspector": "^1.1.1",
