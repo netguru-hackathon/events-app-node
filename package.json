@@ -30,7 +30,7 @@
     "jsonapi-serializer": "^3.5.3",
     "jsonwebtoken": "^7.4.0",
     "lodash": "^4.17.4",
-    "mysql": "^2.13.0",
+    "mysql": "^2.14.0",
     "nock": "^9.0.13",
     "node-inspector": "^1.1.1",
     "passport": "^0.3.2",
